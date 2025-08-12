@@ -81,7 +81,6 @@ body {
   position: relative;
   width: 90%;
   max-width: 800px;
-  aspect-ratio: 392 / 563;
   margin: 40px auto;
   border: 5px solid #210d02;
   border-radius: 20px;
@@ -173,4 +172,5 @@ footer p {
     width: 95%;
   }
 }
+
 
