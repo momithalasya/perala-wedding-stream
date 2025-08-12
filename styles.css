@@ -81,6 +81,7 @@ body {
   position: relative;
   display: inline-block; /* shrink to fit image size */
   max-width: 90%;
+  max-height: 90%;
   margin: 40px auto;
   border: 5px solid #210d02;
   border-radius: 20px;
@@ -96,7 +97,7 @@ body {
 .photo-frame img {
   display: block;
   max-width: 100%;
-  height: auto;
+  max-height: 100%;
   margin: 0 auto;
   object-fit: contain;
   border-radius: 10px;
@@ -174,6 +175,7 @@ footer p {
     width: 95%;
   }
 }
+
 
 
 
