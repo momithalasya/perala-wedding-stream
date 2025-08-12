@@ -79,6 +79,7 @@ body {
 /* Solid brown photo frame with exact ratio */
 .photo-frame {
   position: relative;
+  display: inline-block; /* shrink to fit image size */
   width: 90%;
   max-width: 800px;
   margin: 40px auto;
@@ -94,6 +95,7 @@ body {
 }
 
 .photo-frame img {
+  display: block;
   width: auto;
   height: auto;
   object-fit: cover;
@@ -172,6 +174,7 @@ footer p {
     width: 95%;
   }
 }
+
 
 
 
