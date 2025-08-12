@@ -29,6 +29,7 @@ body {
   flex-direction: column;
   padding: 40px;
   text-align: center;
+  filter:blur(4px);
 }
 
 /* Dropping animation */
@@ -164,4 +165,5 @@ footer p {
   .video-frame {
     width: 95%; /* Assuming this was the intended value */
   }
+
 }
