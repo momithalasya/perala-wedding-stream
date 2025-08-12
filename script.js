@@ -1,5 +1,5 @@
 const video = document.getElementById('weddingStream');
-const videoSrc = 'https://b32f55b7ad1e.ap-south-1.playback.live-video.net/api/video/v1/ap-south-1.679504361987.channel.LolRekloQgdA.m3u8';
+const videoSrc = 'https://b32f55b7ad1e.ap-south-1.playback.live-video.net/api/video/v1/ap-south-1.679504361987.channel.WRU9TqffsKW4.m3u8';
 
 if (Hls.isSupported()) {
   const hls = new Hls();
@@ -9,4 +9,5 @@ if (Hls.isSupported()) {
   video.src = videoSrc;
 } else {
   console.error('HLS not supported in this browser.');
+
 }
