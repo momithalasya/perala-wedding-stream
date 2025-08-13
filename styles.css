@@ -1,51 +1,6 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #fff;
-  color: #333;
-}
-
-/* Custom font */
-@font-face {
-  font-family: 'SeptemberDisplay';
-  src: url('fonts/SeptemberDisplay.woff2') format('woff2'),
-       url('fonts/SeptemberDisplay.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Parallax header container */
-.parallax-header {
-  position: relative;
-  z-index: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 40px;
-  text-align: center;
-  overflow: hidden;
-}
-
-/* Blurred background layer */
-.parallax-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('hall2.jpg');
-  background-size: cover;
-  background-position: center;
-  filter: blur(6px);
-  transform: scale(1.06); /* prevents blurred edges showing */
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Content stays above the blur */
+/* Changed from photo-frame to photo-grid in this selector */
 .quote-content,
-.photo-grid,
+.photo-grid, 
 .video-frame {
   position: relative;
   z-index: 1;
@@ -76,49 +31,52 @@ body {
   margin-top: 10px;
 }
 
-/* Solid brown photo frame with exact ratio */
+/* Photo grid for horizontal scrolling on mobile */
 .photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  display: flex; /* Changed to flexbox for horizontal layout */
+  overflow-x: auto; /* Enables horizontal scrolling when content overflows */
   gap: 20px; /* Space between photos */
   margin: 40px auto;
   max-width: 90%;
-  justify-content: center;
-  align-items: center;
+  padding: 0 10px; /* Add some padding to see the first/last item edges */
+  position: relative; /* Needed for positioning the arrows */
+  -webkit-overflow-scrolling: touch; /* Improves scrolling on iOS */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.photo-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .photo-item {
-  position: relative;
-  /* Removed border and border-radius from here to apply them to the .photo-item itself */
+  flex-shrink: 0; /* Prevents items from shrinking on small screens */
+  width: 250px; /* Fixed width for each photo item on mobile */
+  /* You can adjust this width as needed for your images */
+  
+  border: 5px solid #210d02; /* Frame around the photo item */
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   transition: transform 0.3s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 100%;
-  
-  /* Applying the frame's appearance directly to the .photo-item */
-  border: 5px solid #210d02; /* Your desired border color and width */
-  border-radius: 20px; /* Your desired border radius */
 }
 
-/* Ensure the image fits within the now-bordered photo-item */
+.photo-item:hover {
+  transform: scale(1.1);
+}
+
 .photo-item img {
   display: block;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Still important to keep image aspect ratio */
-  border-radius: 10px; /* Optional: Smaller radius for the image itself */
-  /* Ensure no residual border or outline is affecting the image */
+  object-fit: contain;
+  border-radius: 10px;
   border: none; 
   outline: none;
 }
-
-.photo-item:hover { /* Hover effect for individual photo items */
-  transform: scale(1.1);
-}
-
 
 /* Styling for the new arrows */
 .photo-grid::before,
@@ -135,6 +93,7 @@ body {
   opacity: 0.7;
   transition: opacity 0.3s ease-in-out;
   z-index: 2; /* Ensure arrows are above the photos */
+  pointer-events: auto; /* Ensure arrows are clickable/interactable */
 }
 
 .photo-grid::before {
@@ -150,14 +109,6 @@ body {
 .photo-grid::before:hover,
 .photo-grid::after:hover {
   opacity: 1;
-}
-
-/* Hide arrows by default and only show them on mobile */
-@media (min-width: 769px) { /* Adjust breakpoint as needed */
-  .photo-grid::before,
-  .photo-grid::after {
-    display: none;
-  }
 }
 
 /* Video frame */
@@ -223,22 +174,32 @@ footer p {
     font-size: 2rem;
   }
 
-  .photo-grid { /* Adjusted for mobile - photos stack vertically */
-    grid-template-columns: 1fr;
+  /* Photo grid now behaves differently on mobile */
+  .photo-grid {
+    /* Keep display: flex and overflow-x: auto from the general rule */
   }
 
+  /* Hide arrows by default and only show them on mobile */
+  .photo-grid::before,
+  .photo-grid::after {
+    display: block; /* Show arrows on mobile */
+  }
 
   .video-frame {
     width: 95%;
   }
 }
 
+/* On larger screens, the grid will behave as originally intended */
+@media (min-width: 769px) {
+  .photo-grid {
+    display: grid; /* Use grid for larger screens as planned */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    overflow-x: visible; /* No scrollbar on larger screens */
+  }
 
-
-
-
-
-
-
-
-
+  .photo-grid::before,
+  .photo-grid::after {
+    display: none; /* Hide arrows on larger screens */
+  }
+}
