@@ -45,7 +45,7 @@ body {
 
 /* Content stays above the blur */
 .quote-content,
-.photo-frame,
+.photo-grid,
 .video-frame {
   position: relative;
   z-index: 1;
@@ -77,32 +77,30 @@ body {
 }
 
 /* Solid brown photo frame with exact ratio */
-.photo-frame {
+.photo-item { /* New class for individual photo containers */
   position: relative;
-  display: inline-block; /* shrink to fit image size */
-  max-width: 90%;
-  max-height: 90%;
-  margin: 40px auto;
   border: 5px solid #210d02;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   transition: transform 0.3s ease-in-out;
+  display: flex; /* Ensures image is centered within the item */
+  justify-content: center;
+  align-items: center;
+  max-width: 100%; /* Ensure items don't overflow the grid */
 }
 
-.photo-frame:hover {
+.photo-item:hover { /* Hover effect for individual photo items */
   transform: scale(1.1);
 }
 
-.photo-frame img {
+.photo-item img { /* Styling for images within photo items */
   display: block;
   max-width: 100%;
   max-height: 100%;
-  margin: 0 auto;
   object-fit: contain;
   border-radius: 10px;
 }
-
 /* Video frame */
 .video-frame {
   width: 90%;
@@ -166,15 +164,16 @@ footer p {
     font-size: 2rem;
   }
 
-  .photo-frame {
-    width: auto;
-    height: auto;
+  .photo-grid { /* Adjusted for mobile - photos stack vertically */
+    grid-template-columns: 1fr;
   }
+
 
   .video-frame {
     width: 95%;
   }
 }
+
 
 
 
