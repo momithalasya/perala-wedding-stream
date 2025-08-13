@@ -1,4 +1,50 @@
-/* Changed from photo-frame to photo-grid in this selector */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #333;
+}
+
+/* Custom font */
+@font-face {
+  font-family: 'SeptemberDisplay';
+  src: url('fonts/SeptemberDisplay.woff2') format('woff2'),
+       url('fonts/SeptemberDisplay.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Parallax header container */
+.parallax-header {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh; /* Changed from height: 100vh; to min-height: 100vh; */
+  height: auto; /* Added to allow it to expand beyond 100vh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Blurred background layer */
+.parallax-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('hall2.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px);
+  transform: scale(1.06); /* prevents blurred edges showing */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content stays above the blur */
 .quote-content,
 .photo-grid,
 .video-frame {
@@ -31,21 +77,21 @@
   margin-top: 10px;
 }
 
-/* Photo grid for stacked photos - reverted to column layout */
+/* Photo grid for stacked photos */
 .photo-grid {
-  display: flex; /* Using flexbox for vertical stacking */
-  flex-direction: column; /* Stack items vertically */
+  display: flex; /* Changed from grid to flex */
+  flex-direction: column; /* Added to stack photos vertically */
   gap: 20px; /* Space between photos */
   margin: 40px auto;
   max-width: 90%;
-  justify-content: center; /* Center items horizontally within the container */
-  align-items: center; /* Center items along the cross axis (which is horizontal in a column layout) */
+  justify-content: center;
+  align-items: center;
 }
 
 .photo-item {
   position: relative;
-  border: 5px solid #210d02; /* Frame around the photo item */
-  border-radius: 20px;
+  border: 5px solid #210d02; /* Your desired border color and width */
+  border-radius: 20px; /* Your desired border radius */
   overflow: hidden;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   transition: transform 0.3s ease-in-out;
@@ -55,25 +101,45 @@
   max-width: 100%;
 }
 
-.photo-item:hover {
-  transform: scale(1.1);
-}
-
 .photo-item img {
   display: block;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain; /* Ensures images fit within their containers */
-  border-radius: 10px;
+  border-radius: 10px; /* Optional: Smaller radius for the image itself */
   border: none;
   outline: none;
 }
 
-/* Removed all arrow-related CSS */
+.photo-item:hover { /* Hover effect for individual photo items */
+  transform: scale(1.1);
+}
+
+
+/* Removed Styling for the new arrows */
+/* These rules are removed to ensure arrows are not present */
 .photo-grid::before,
 .photo-grid::after {
-  display: none; /* Explicitly hide arrows */
+    display: none !important; /* Forces hiding the arrows */
+    content: none !important; /* Ensures the content is also removed */
 }
+
+/* Removed media query that made arrows visible on mobile */
+/* @media (max-width: 768px) {
+  .photo-grid::before,
+  .photo-grid::after {
+    display: block; 
+  }
+} */
+
+/* Removed media query that hid arrows on desktop */
+/* @media (min-width: 769px) {
+  .photo-grid::before,
+  .photo-grid::after {
+    display: none; 
+  }
+} */
+
 
 /* Video frame */
 .video-frame {
@@ -138,40 +204,32 @@ footer p {
     font-size: 2rem;
   }
 
+  .photo-grid { /* Adjusted for mobile - photos stack vertically */
+    /* This rule was setting grid-template-columns: 1fr; and overriding the flex-direction: column; for mobile. */
+    /* Remove this block if you want the photos to always stack in a column, regardless of screen size. */
+    /* Based on your last request, we want them stacked, so this is now redundant. */
+  }
+
+
   .video-frame {
     width: 95%;
   }
 }
 
-/* On larger screens, the photo-grid remains a flex column */
+/* On larger screens, the grid will behave as originally intended */
 @media (min-width: 769px) {
-  /* No changes needed for .photo-grid as it's already a flex column */
-}
+  .photo-grid {
+    /* This rule was setting display: grid; for larger screens. */
+    /* Since we now want them to always stack, this can be removed or left as is to demonstrate a potential desktop grid layout if you change your mind later. */
+    /* For now, we will leave it commented out as per your request for stacking. */
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+    /* overflow-x: visible; */
+  }
 
-/* Parallax header modifications */
-.parallax-header {
-  position: relative;
-  z-index: 0;
-  min-height: 100vh; /* Ensure the header is at least 100vh tall */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 40px;
-  text-align: center;
-  overflow: hidden;
-  height: auto; /* Allow header to expand with content */
-}
-
-.parallax-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('hall2.jpg'); /* This line sets your background image */
-  background-size: cover;
-  background-position: center;
-  filter: blur(6px);
-  transform: scale(1.06); /* prevents blurred edges showing */
-  z-index: 0;
-  pointer-events: none;
+  /* This media query hides arrows, but we've removed arrow CSS completely */
+  /* .photo-grid::before,
+  .photo-grid::after {
+    display: none; 
+  } */
 }
