@@ -162,3 +162,16 @@ footer p {
   overflow: hidden;
   height: auto; /* Allow header to expand with content */
 }
+
+.parallax-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('hall2.jpg'); /* This line sets your background image */
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px);
+  transform: scale(1.06); /* prevents blurred edges showing */
+  z-index: 0;
+  pointer-events: none;
+}
