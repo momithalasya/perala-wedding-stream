@@ -87,30 +87,38 @@ body {
   align-items: center;
 }
 
-.photo-item { /* New class for individual photo containers */
+.photo-item {
   position: relative;
-  border: 5px solid #210d02;
-  border-radius: 20px;
+  /* Removed border and border-radius from here to apply them to the .photo-item itself */
   overflow: hidden;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   transition: transform 0.3s ease-in-out;
-  display: flex; /* Ensures image is centered within the item */
+  display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 100%; /* Ensure items don't overflow the grid */
+  max-width: 100%;
+  
+  /* Applying the frame's appearance directly to the .photo-item */
+  border: 5px solid #210d02; /* Your desired border color and width */
+  border-radius: 20px; /* Your desired border radius */
+}
+
+/* Ensure the image fits within the now-bordered photo-item */
+.photo-item img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Still important to keep image aspect ratio */
+  border-radius: 10px; /* Optional: Smaller radius for the image itself */
+  /* Ensure no residual border or outline is affecting the image */
+  border: none; 
+  outline: none;
 }
 
 .photo-item:hover { /* Hover effect for individual photo items */
   transform: scale(1.1);
 }
 
-.photo-item img { /* Styling for images within photo items */
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* ensures images fit within their containers without cropping or distortion */
-  border-radius: 10px;
-}
 
 /* Styling for the new arrows */
 .photo-grid::before,
@@ -224,6 +232,7 @@ footer p {
     width: 95%;
   }
 }
+
 
 
 
